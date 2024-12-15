@@ -1,174 +1,129 @@
-﻿**Project Documentation**
+﻿## **Project Documentation**
 
-**1. Introduction**
+### **1. Introduction**
 
-This document details the changes, improvements, and practices implemented in the project to meet specific requirements and update the technology stack. The work followed **DDD (Domain-Driven Design)** principles and **S.O.L.I.D**, focusing on scalability, maintainability, and performance.
+This document details the changes, improvements, and practices implemented in the project to meet specific requirements and update the technology stack. The work followed **DDD (Domain-Driven Design)** principles and **S.O.L.I.D**, focusing on scalability, maintainability, and performance.
 
------
-**2. Updates Implemented**
+A **Web API** was implemented as an additional interface to process meal orders, leveraging **minimal APIs** and **Swagger/OpenAPI** for ease of integration and documentation.
 
-**2.1 .NET Core Update**
+---
 
-- The project was updated from **.NET Core 3.1** to **.NET 9.0**, ensuring support for the latest features and better performance.
+### **2. Updates Implemented**
 
-**2.2 C# Update**
+#### **2.1 Web API Implementation**
 
-- Migrated from **C# 8** to **C# 13**, enabling the use of modern features such as:
-  - **Advanced Pattern Matching**
-  - **Raw String Literals**
-  - **List Patterns**
-  - **Static Abstract Members in Interfaces**
+- Introduced a Web API as an additional interface to process meal orders.
+- The API was built with **minimal APIs** in ASP.NET Core 9.0.
+- **Swagger/OpenAPI** was integrated for detailed endpoint documentation and interactive testing.
 
-**2.3 Nullable Reference Types**
+---
 
-- **Nullable reference types** were enabled to ensure better safety against **NullReferenceException**.
-- All classes were reviewed and adjusted to utilize this feature.
+### **3. Project Structure**
 
-**2.4 NuGet Package Updates**
-
-- All NuGet packages were updated to their latest versions.
-- Vulnerabilities in outdated packages were addressed:
-  - A security audit was performed using tools such as **dotnet outdated** and **Dependabot**.
-
-**3. Code Changes**
-
-**3.1 Test Refactoring**
-
-- **NUnit Framework** was updated to support the new .NET and C# versions.
-- Changes made to test methods:
-  - Replaced **Assert.AreEqual()** with **Assert.Equals()**, as required.
-  - Adopted **Assert.Throws** for exception validation.
-- Tests were created or updated for the following areas:
-  - **DishManager**
-  - **DishRepository**
-  - **Server**
-  - Error cases, such as invalid periods or dishes.
-
-**3.2 Use of String Interpolation**
-
-- Replaced **string.Format** with **string interpolation** ($"Text {variable}") for better readability and performance.
-
-**3.3 Project Structure**
-
-- Organized the project into logical folders, following a **DDD (Domain-Driven Design)** layer pattern:
-  - **Domain**:
-    - Domain entities and interfaces.
-  - **Application**:
-    - Business logic and services.
-  - **Infrastructure**:
-    - Repository implementations and external dependencies.
-  - **Tests**:
-    - Unit and integration tests.
-
-**3.4 Implementation of IoC and DI**
-
-- **Inversion of Control (IoC)** and **Dependency Injection (DI)** were implemented using **Microsoft.Extensions.DependencyInjection**.
-- Configurations made in **Program.cs**:
-  - Registered interfaces and their implementations:
-    - IDishManager, DishManager
-    - IDishRepository, DishRepository
-    - IServer, Server
-  - Managed instance of **ServiceProvider** for dependency injection.
-
-**4. Project Structure**
-
-**4.1 Layers**
+#### **3.1 Layers** *(Updated)*
 
 1. **Presentation**:
-   1. Entry point for the application (e.g., CLI).
-   1. Handles user input and passes it to the services.
-   1. Example: **Program.cs**.
-1. **Services**:
-   1. Contains the application’s business logic.
-   1. Coordinates actions between the **Domain** and **Infrastructure** layers.
-   1. Example:
-      1. DishManager (implements IDishManager)
-      1. Server (implements IServer).
-1. **Domain**:
-   1. Represents the core business logic and rules.
-   1. Contains entities and interfaces defining the domain.
-   1. Example:
-      1. Dish, DishData, Order
-      1. IDishRepository.
-1. **Infrastructure**:
-   1. Handles communication with external systems or data sources.
-   1. Example:
-      1. DishRepository:
-         1. Centralizes data for dishes.
-         1. Implements IDishRepository.
-1. **Tests**:
-   1. Contains unit and integration tests.
-   1. Coverage for:
-      1. **DishManagerTests**
-      1. **DishRepositoryTests**
-      1. **ServerTests**
+    - Handles both CLI and Web API input.
+    - Entry points:
+        - **CLI**: Processes user input via `Program.cs`.
+        - **Web API**: Accepts HTTP requests via minimal APIs.
+    - Example: **Program.cs** for CLI, **Web API setup in Program.cs** for HTTP endpoints.
 
-**5. Best Practices Adopted**
+2. **Services**:
+    - Contains the business logic of the application.
+    - Coordinates between the **Domain** and **Infrastructure** layers.
+    - Example:
+        - `DishManager` (implements `IDishManager`).
+        - `Server` (implements `IServer`).
 
-**5.1 Design Patterns**
+3. **Domain**:
+    - Represents the core business logic and rules.
+    - Contains entities and interfaces defining the domain.
+    - Example:
+        - `Dish`, `DishData`, `Order`.
+        - `IDishRepository`.
 
-- **DDD (Domain-Driven Design)**:
-  - Separation of responsibilities between **Domain**, **Application**, and **Infrastructure**.
-- **S.O.L.I.D**:
-  - **Single Responsibility Principle**: Each class or method has a well-defined function.
-  - **Dependency Inversion Principle**: Interfaces define contracts, with implementations injected dynamically.
+4. **Infrastructure**:
+    - Manages data access and communication with external systems.
+    - Example:
+        - `DishRepository`: Implements `IDishRepository`.
 
-**5.2 Clean Code**
+5. **Tests**:
+    - Contains unit and integration tests for all layers.
+    - Examples:
+        - `DishManagerTests`.
+        - `DishRepositoryTests`.
+        - `ServerTests`.
+        - `API Tests`.
 
-- Refactored code for improved readability and maintainability:
-  - Short and focused methods.
-  - Descriptive variable and method names.
+---
 
-**6. System Features**
+### **4. Web API Details**
 
-- Accept CLI input for processing orders.
-- Validate periods and dishes.
-- Return results in a clear and ordered format:
-  - Example: "eggs,toast,coffee(x2)".
-- Support for multiple instances of dishes when allowed (e.g., coffee and potato).
-- Friendly error messages for invalid inputs:
-  - Example: "error: Invalid period 'afternoon'.".
+#### **4.1 Overview**
 
-**7. Tests Implemented**
+- The Web API provides an interface to process meal orders using HTTP requests.
+- Built with **ASP.NET Core 9.0**.
+- Utilizes **Swagger/OpenAPI** for self-documenting endpoints.
 
-**7.1 Coverage**
+#### **4.2 Endpoints**
 
-- **DishManager**:
-  - Validation of periods.
-  - Allowed and multiple dishes.
-- **DishRepository**:
-  - Correct data retrieval for dishes and periods.
-  - Error cases for nonexistent dishes or invalid periods.
-- **Server**:
-  - Full order processing and output formatting.
+**Endpoint**: `/order`
 
-**7.2 Tools**
+- **Method**: `GET`
+- **Description**: Processes a meal order and returns the result.
+- **Parameters**:
+    - `unparsedOrder`: The input string representing the meal period and dish IDs (e.g., `morning, 1, 2, 3`).
+- **Responses**:
+    - `200 OK`: The order was successfully processed.
+        - Example:
+          ```json
+          {
+            "data": "eggs,toast,coffee"
+          }
+          ```
+    - `400 Bad Request`: The input was invalid.
+        - Example:
+          ```json
+          {
+            "error": "Invalid period. Must be 'morning' or 'evening'."
+          }
+          ```
 
-- Test Framework: **NUnit**
-- CI/CD: Integrated with **Azure DevOps** for automated test execution.
+#### **4.3 Features**
 
-**8. Getting Started**
+1. **Swagger Integration**:
+    - Accessible at `/swagger` in development environments.
+    - Includes parameter details, example inputs, and response formats.
 
-**Setup Steps**
+2. **Error Handling**:
+    - Returns descriptive error messages for invalid inputs.
 
-1. Clone the repository:
+3. **Minimal API**:
+    - Streamlined API setup using minimal APIs in ASP.NET Core 9.0.
 
-   git clone https://github.com/lkolodziey/Grosvenor.git
+#### **4.4 How to Use**
 
-1. Restore NuGet packages:
+1. **Start the API**:
+   ```bash
+   dotnet run
+   ```
 
-   dotnet restore
+2. **Access Swagger**:
+    - Navigate to `https://localhost:<port>/swagger` to explore and test the API.
 
-1. Run the tests:
+3. **Example Request**:
+    - Input: `GET /order?unparsedOrder=morning,1,2,3`
+    - Output:
+      ```json
+      {
+        "data": "eggs,toast,coffee"
+      }
+      ```
 
-   dotnet test
+---
 
-1. Run the application:
+### **5. Final Considerations**
 
-   dotnet run --project GrosvenorDeveloperPracticum
-
------
-**9. Final Considerations**
-
-The changes significantly improved the security, maintainability, and performance of the project. By adopting patterns like **DDD**, **S.O.L.I.D**, and modern C# practices, the system is now prepared for future scalability and enhancements.
+The inclusion of the Web API enhances the project's extensibility and usability. By supporting both CLI and HTTP interfaces, the system accommodates a wider range of client applications. The use of Swagger ensures that the API is self-documenting and easy to integrate.
 
