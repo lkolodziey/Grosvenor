@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Infrastructure", "04 -
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{94F934C5-D4E7-40D1-8F83-6A35653B2942}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grosvenor.Api", "Grosvenor.Api\Grosvenor.Api.csproj", "{AA780E37-EA38-4920-A377-93514E95B71F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{94F934C5-D4E7-40D1-8F83-6A35653B2942}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94F934C5-D4E7-40D1-8F83-6A35653B2942}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94F934C5-D4E7-40D1-8F83-6A35653B2942}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA780E37-EA38-4920-A377-93514E95B71F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA780E37-EA38-4920-A377-93514E95B71F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA780E37-EA38-4920-A377-93514E95B71F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA780E37-EA38-4920-A377-93514E95B71F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +68,6 @@ Global
 		{07DF5172-C83F-41EB-813E-853321C82E6E} = {7ACAEDA1-4E13-4430-B991-320361557714}
 		{687C1C32-A594-4061-8DF9-73EE6CB56793} = {76D08F87-AEA2-4B97-9901-103BB2A2C990}
 		{94F934C5-D4E7-40D1-8F83-6A35653B2942} = {8E0861E6-3EFA-4B69-87FD-AA304EE35247}
+		{AA780E37-EA38-4920-A377-93514E95B71F} = {A1145E93-BF96-4401-8C1C-FBE1A29A13D4}
 	EndGlobalSection
 EndGlobal

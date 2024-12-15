@@ -11,12 +11,18 @@ using NUnit.Framework;
 
 namespace ApplicationTests
 {
+    /// <summary>
+    /// Unit tests for the <see cref="DishManager"/> class, validating its logic for handling dish orders.
+    /// </summary>
     [TestFixture]
     public class DishManagerTests
     {
         private ServiceProvider _serviceProvider;
         private IDishManager _dishManager;
 
+        /// <summary>
+        /// Sets up the test environment by configuring Dependency Injection (DI).
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -28,11 +34,18 @@ namespace ApplicationTests
             _dishManager = _serviceProvider.GetRequiredService<IDishManager>();
         }
 
+        /// <summary>
+        /// Cleans up the resources after each test.
+        /// </summary>
         [TearDown]
         public void TearDown()
         {
             _serviceProvider?.Dispose();
         }
+
+        /// <summary>
+        /// Validates that an empty dish list returns an empty result.
+        /// </summary>
         [Test]
         public void EmptyListReturnsEmptyList()
         {
@@ -47,6 +60,9 @@ namespace ApplicationTests
             Assert.That(actual.Count, Is.EqualTo(0));
         }
 
+        /// <summary>
+        /// Validates that an invalid dish ID throws an appropriate error.
+        /// </summary>
         [Test]
         public void InvalidDishReturnsError()
         {
@@ -59,7 +75,10 @@ namespace ApplicationTests
             var ex = Assert.Throws<ApplicationException>(() => _dishManager.GetDishes(order));
             Assert.That(ex?.Message, Is.EqualTo("Invalid dish type for this period."));
         }
-        
+
+        /// <summary>
+        /// Validates that a valid morning order returns the correct dishes.
+        /// </summary>
         [Test]
         public void MorningWithValidDishesReturnsCorrectOutput()
         {
@@ -77,6 +96,9 @@ namespace ApplicationTests
             Assert.That(actual[2].DishName, Is.EqualTo("coffee"));
         }
 
+        /// <summary>
+        /// Validates that ordering a dessert in the morning throws an error.
+        /// </summary>
         [Test]
         public void MorningWithDessertReturnsError()
         {
@@ -90,6 +112,9 @@ namespace ApplicationTests
             Assert.That(ex?.Message, Is.EqualTo("Invalid dish type for this period."));
         }
 
+        /// <summary>
+        /// Validates that multiple coffees in the morning are handled correctly.
+        /// </summary>
         [Test]
         public void MorningWithMultipleCoffeesReturnsCorrectCount()
         {
@@ -106,6 +131,9 @@ namespace ApplicationTests
             Assert.That(actual.First().Count, Is.EqualTo(3));
         }
 
+        /// <summary>
+        /// Validates that a valid evening order returns the correct dishes.
+        /// </summary>
         [Test]
         public void EveningWithValidDishesReturnsCorrectOutput()
         {
@@ -124,6 +152,9 @@ namespace ApplicationTests
             Assert.That(actual[3].DishName, Is.EqualTo("cake"));
         }
 
+        /// <summary>
+        /// Validates that multiple potatoes in the evening are handled correctly.
+        /// </summary>
         [Test]
         public void EveningWithMultiplePotatoesReturnsCorrectCount()
         {
@@ -140,6 +171,9 @@ namespace ApplicationTests
             Assert.That(actual.First().Count, Is.EqualTo(2));
         }
 
+        /// <summary>
+        /// Validates that multiple steaks in the evening throw an error.
+        /// </summary>
         [Test]
         public void EveningWithMultipleSteaksReturnsError()
         {
@@ -153,6 +187,9 @@ namespace ApplicationTests
             Assert.That(ex?.Message, Is.EqualTo("Multiple steak(s) not allowed."));
         }
 
+        /// <summary>
+        /// Validates that an invalid dish in the evening throws an error.
+        /// </summary>
         [Test]
         public void EveningWithInvalidDishReturnsError()
         {
@@ -165,7 +202,10 @@ namespace ApplicationTests
             var ex = Assert.Throws<ApplicationException>(() => _dishManager.GetDishes(order));
             Assert.That(ex?.Message, Is.EqualTo("Invalid dish type for this period."));
         }
-        
+
+        /// <summary>
+        /// Validates that a valid period without dishes returns an empty list.
+        /// </summary>
         [Test]
         public void ValidPeriodWithoutDishesReturnsEmptyList()
         {
@@ -180,6 +220,9 @@ namespace ApplicationTests
             Assert.That(actual.Count, Is.EqualTo(0));
         }
 
+        /// <summary>
+        /// Validates that spaces in the input do not affect the resulting dish list.
+        /// </summary>
         [Test]
         public void InputWithSpacesReturnsCorrectDishList()
         {

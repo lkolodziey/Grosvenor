@@ -4,17 +4,27 @@ using NUnit.Framework;
 
 namespace ApplicationTests;
 
+/// <summary>
+/// Unit tests for the <see cref="DishRepository"/> class, validating its behavior
+/// when retrieving dish metadata based on dish IDs and periods.
+/// </summary>
 [TestFixture]
 public class DishRepositoryTests
 {
     private IDishRepository _repository;
 
+    /// <summary>
+    /// Initializes the repository instance before each test.
+    /// </summary>
     [SetUp]
     public void Setup()
     {
         _repository = new DishRepository();
     }
-    
+
+    /// <summary>
+    /// Validates that a valid dish ID for the "morning" period returns the correct dish metadata.
+    /// </summary>
     [Test]
     public void GetOrderName_ValidDishForMorning_ReturnsCorrectDish()
     {
@@ -26,6 +36,9 @@ public class DishRepositoryTests
         Assert.That(result.Period, Is.EqualTo("morning"));
     }
 
+    /// <summary>
+    /// Validates that a valid dish ID for the "evening" period returns the correct dish metadata.
+    /// </summary>
     [Test]
     public void GetOrderName_ValidDishForEvening_ReturnsCorrectDish()
     {
@@ -37,6 +50,9 @@ public class DishRepositoryTests
         Assert.That(result.Period, Is.EqualTo("evening"));
     }
 
+    /// <summary>
+    /// Ensures that the repository correctly handles case-insensitive period values.
+    /// </summary>
     [Test]
     public void GetOrderName_PeriodCaseInsensitive_ReturnsCorrectDish()
     {
@@ -47,7 +63,10 @@ public class DishRepositoryTests
         Assert.That(result.Category, Is.EqualTo("entrée"));
         Assert.That(result.Period, Is.EqualTo("morning"));
     }
-    
+
+    /// <summary>
+    /// Validates that an invalid dish ID for the "morning" period returns null.
+    /// </summary>
     [Test]
     public void GetOrderName_InvalidDishForMorning_ReturnsNull()
     {
@@ -56,6 +75,9 @@ public class DishRepositoryTests
         Assert.That(result, Is.Null);
     }
 
+    /// <summary>
+    /// Validates that an invalid dish ID for the "evening" period returns null.
+    /// </summary>
     [Test]
     public void GetOrderName_InvalidDishForEvening_ReturnsNull()
     {
@@ -64,6 +86,9 @@ public class DishRepositoryTests
         Assert.That(result, Is.Null);
     }
 
+    /// <summary>
+    /// Validates that an invalid period returns null for a valid dish ID.
+    /// </summary>
     [Test]
     public void GetOrderName_InvalidPeriod_ReturnsNull()
     {
@@ -72,6 +97,9 @@ public class DishRepositoryTests
         Assert.That(result, Is.Null);
     }
 
+    /// <summary>
+    /// Ensures that a dish ID not found in the repository returns null.
+    /// </summary>
     [Test]
     public void GetOrderName_DishIdNotFound_ReturnsNull()
     {
@@ -79,7 +107,10 @@ public class DishRepositoryTests
 
         Assert.That(result, Is.Null);
     }
-    
+
+    /// <summary>
+    /// Validates that multiple valid calls to the repository return the correct results.
+    /// </summary>
     [Test]
     public void GetOrderName_MultipleValidCalls_ReturnsCorrectResults()
     {
