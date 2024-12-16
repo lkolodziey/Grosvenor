@@ -1,7 +1,7 @@
 @Grosvenor_Api_http_HostAddress = http://localhost:5250
 @Grosvenor_Api_https_HostAddress = https://localhost:7052
 
-GET {{Grosvenor_Api_https_HostAddress}}/weatherforecast/
+GET {{Grosvenor_Api_https_HostAddress}}/order
 Accept: application/json
 
 ###
