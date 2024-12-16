@@ -68,7 +68,7 @@ A **Web API** was implemented as an additional interface to process meal orders,
 
 #### **4.2 Endpoints**
 
-**Endpoint**: `/order`
+**Endpoint**: `/orders`
 
 - **Method**: `GET`
 - **Description**: Processes a meal order and returns the result.
